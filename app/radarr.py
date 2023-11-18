@@ -1,5 +1,6 @@
 import requests
 from decouple import config
+import json
 
 class RadarrAPI:
     def __init__(self):
@@ -13,7 +14,9 @@ class RadarrAPI:
             full_url = self.base_url + endpoint_path
             response = requests.get(full_url, headers=self.headers)
             if response.status_code == 200:
-                data = response.json()   
+                data = response.json()
+                with open('data_file.json', 'w') as file:
+                    json.dump(data, file, indent=4)
                 return data
             else:
                 print(f"Error: {response.status_code} - {response.text}")
@@ -22,6 +25,8 @@ class RadarrAPI:
 # Usage
 radarr_api = RadarrAPI()
 #response = radarr_api.make_request('importlist')
-radarrimportlists = radarr_api.make_request('importlist')
+radarrimportlists = radarr_api.make_request('importlist/movie')
+
+
 
 print(radarrimportlists)

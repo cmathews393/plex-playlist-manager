@@ -333,6 +333,23 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-executor"
+version = "1.0.0"
+description = "An easy to use Flask wrapper for concurrent.futures"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Flask-Executor-1.0.0.tar.gz", hash = "sha256:4bc113def5d9f1c7ff272ff7ba09f843468eab80469bdbd21625a111b2c8ae7b"},
+    {file = "Flask_Executor-1.0.0-py3-none-any.whl", hash = "sha256:c044dc6393326a83351e69e4ddf3686270abffeac2b599260cebf0ea5d1e93de"},
+]
+
+[package.dependencies]
+Flask = "*"
+
+[package.extras]
+test = ["flask-sqlalchemy", "pytest"]
+
+[[package]]
 name = "frozenlist"
 version = "1.4.0"
 description = "A list-like structure which implements collections.abc.MutableSequence"
@@ -767,6 +784,20 @@ requests = ">=2.25"
 requests-oauthlib = ">=1.3"
 
 [[package]]
+name = "types-requests"
+version = "2.31.0.10"
+description = "Typing stubs for requests"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "types-requests-2.31.0.10.tar.gz", hash = "sha256:dc5852a76f1eaf60eafa81a2e50aefa3d1f015c34cf0cba130930866b1b22a92"},
+    {file = "types_requests-2.31.0.10-py3-none-any.whl", hash = "sha256:b32b9a86beffa876c0c3ac99a4cd3b8b51e973fb8e3bd4e0a6bb32c7efad80fc"},
+]
+
+[package.dependencies]
+urllib3 = ">=2"
+
+[[package]]
 name = "urllib3"
 version = "2.1.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -889,4 +920,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "9e93b83b4c1659fd517fb20d4368d4f9ec9c7a8c1eb4429640dc79673aaf5483"
+content-hash = "025227e0a1be60e9954f6fb8f3185a618f38e8e75d5eb7dfd6acc0519418e03e"

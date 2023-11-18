@@ -15,6 +15,8 @@ trakt = "^3.4.0"
 tmdb-python = "^0.0.9"
 asyncio = "^3.4.3"
 flask = "^3.0.0"
+flask-executor = "^1.0.0"
+types-requests = "^2.31.0.10"
 
 
 [build-system]

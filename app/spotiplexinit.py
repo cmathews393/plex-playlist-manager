@@ -1,12 +1,7 @@
-from spotiplex import (
+from .spotiplex import (
     connect_plex,
     connect_spotify,
     getlidarrlists,
-    # extract_playlist_id,
-    # get_playlist_name,
-    # get_spotify_playlist_tracks,
-    # create_list,
-    # check_tracks_in_plex,
     process_playlist,
 )
 import concurrent.futures
@@ -89,7 +84,8 @@ def connection_handler():
     return (plex, sp, lidarr_playlists)
 
 
-def main():
+def playlistsync():
+    global is_syncing
     plex, sp, lidarr_playlists = connection_handler()
     print(lidarr_playlists)
     workercount = int(config("WORKERS"))
@@ -104,6 +100,7 @@ def main():
     # Then process for each user in the user list
     for user in userlist:
         process_for_user(user.strip(), plex, sp, lidarr_playlists, workercount, replace)
+    is_syncing = False
 
 
 if __name__ == "__main__":
