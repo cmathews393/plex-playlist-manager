@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, blueprints, jsonify
 import os
 from flask_executor import Executor
-from .spotiplexinit import playlistsync
+from .spotiplexfunctions import playlistsync
 from .config_handler import read_config, write_config
 
 # import .spotify as sp
@@ -46,13 +46,17 @@ def create_app(test_config=None):
     def searchform():
         return render_template("config.html.j2")
 
-    @app.route("/syncing")
+    @app.route("/sync")
     def syncing():
         global is_syncing
         if not is_syncing:
             is_syncing = True
             executor.submit(playlistsync)
         return render_template("syncing.html.j2")
+    
+    @app.route("/logs")
+    def logpage():
+        return render_template("logs.txt") #? Might do this the same way the Arrs do and dump a text file that rotates? unsure
 
     @app.route("/<service>", methods=["GET"])
     def service_settings(service):
