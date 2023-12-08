@@ -1,5 +1,5 @@
 import requests
-from decouple import config
+from .config_handler import read_config, write_config
 
 class SONARRAPI:
     def __init__(self):

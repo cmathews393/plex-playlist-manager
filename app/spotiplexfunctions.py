@@ -6,7 +6,7 @@ from .spotiplex import (
 )
 import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
-from decouple import config
+import rtoml
 import schedule
 import time
 

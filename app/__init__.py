@@ -3,6 +3,7 @@ import os
 from flask_executor import Executor
 from .spotiplexfunctions import playlistsync
 from .config_handler import read_config, write_config
+from .syncer import syncall
 
 # import .spotify as sp
 # import lidarr as lidarr
@@ -53,10 +54,20 @@ def create_app(test_config=None):
             is_syncing = True
             executor.submit(playlistsync)
         return render_template("syncing.html.j2")
-    
+
+    @app.route("/syncall")
+    def syncallrouter():
+        global is_syncing
+        if not is_syncing:
+            is_syncing = True
+            executor.submit(syncall)
+        return render_template("syncing.html.j2")
+
     @app.route("/logs")
     def logpage():
-        return render_template("logs.txt") #? Might do this the same way the Arrs do and dump a text file that rotates? unsure
+        return render_template(
+            "logs.txt"
+        )  # ? Might do this the same way the Arrs do and dump a text file that rotates? unsure
 
     @app.route("/<service>", methods=["GET"])
     def service_settings(service):
