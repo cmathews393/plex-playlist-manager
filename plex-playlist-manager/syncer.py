@@ -1,5 +1,6 @@
-from spotiplexfunctions import connection_handler, process_for_user
-from config_handler import read_config, ensure_config_exists
+from .spotiplexfunctions import connection_handler, process_for_user
+from .config_handler import read_config, ensure_config_exists
+from sonarr import SONARRAPI
 
 
 def spotifyplaylistsync():
@@ -27,13 +28,14 @@ def spotifyplaylistsync():
 
 def testvars():
     config = ensure_config_exists()  # Ensure the config file exists
-
+    sectionnames = []
     count = 0
     for section in config:
-        if config[section]:  # Checks if the section has one or more items
+        if config[section]:
+            sectionnames.append(section)  # Checks if the section has one or more items
             count += 1
 
-    return count
+    return sectionnames, count
 
 
 def syncall():
@@ -43,7 +45,35 @@ def syncall():
     workercount = int(ppm_config.get("workercount"))
     users = ppm_config.get("users").split(",") if ppm_config.get("users") else []
 
-    testvars()
+    sectionnames, count = testvars()
+
+    print("Activated services are:" sectionnames[0]) #Fix this
+    try:
+        PLEXAPI.initconnection()
+        try:
+            SONARRAPI.make_request()
+        except:
+            print("SONARRAPI failed")
+        try:
+            RADARRAPI.make_request()
+        except:
+            print("RADARRAPI failed")
+        try:
+            LIDARRAPI.make_request()
+        except:
+            print("LIDARRAPI failed")
+        try:
+            TRAKTAPI.initconnection()
+        except:
+            print("TRAKTAPI failed")
+        try:
+            TMDBAPI.initconnection()
+        except:
+            print("TMDBAPI failed")
+    except:
+        print("PLEXAPI failed")
+    
+
 
     is_syncing = False
 
