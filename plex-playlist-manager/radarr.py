@@ -1,5 +1,5 @@
 import requests
-from decouple import config
+from config_handler import read_config, write_config
 import json
 from plexapi.collection import Collection as col
 import urllib3
@@ -10,7 +10,7 @@ class RadarrAPI:
     def __init__(self):
         self.RADARR_IP = "http://192.168.1.160:7878"
         self.RADARR_TOKEN = "2e842c75b67d46a7bd234bbbd3f66568"
-        self.RADARR_ENDPOINT = config("RADARR_ENDPOINT", default="/api/v3/")
+        self.RADARR_ENDPOINT = read_config("RADARR_ENDPOINT", default="/api/v3/")
         self.headers = {"X-Api-Key": self.RADARR_TOKEN}
         self.base_url = f"{self.RADARR_IP}{self.RADARR_ENDPOINT}"
 
