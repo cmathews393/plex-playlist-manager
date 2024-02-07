@@ -7,21 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+PlexAPI = "^4.15.9"
 spotipy = "^2.23.0"
-plexapi = "^4.15.6"
-python-decouple = "^3.8"
+rtoml = "^0.10.0"
 schedule = "^1.2.1"
-trakt = "^3.4.0"
-tmdb-python = "^0.0.9"
-asyncio = "^3.4.3"
-flask = "^3.0.0"
-flask-executor = "^1.0.0"
-types-requests = "^2.31.0.10"
-flask-bootstrap = "^3.3.7.1"
-pyyaml = "^6.0.1"
-configparser = "^6.0.0"
-rtoml = "^0.9.0"
-bootstrap-flask = "^2.3.3"
 requests = "^2.31.0"
 
 
