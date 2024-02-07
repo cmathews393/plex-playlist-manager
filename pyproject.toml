@@ -14,6 +14,7 @@ schedule = "^1.2.1"
 requests = "^2.31.0"
 flask = "^3.0.2"
 bootstrap-flask = "^2.3.3"
+flask-executor = "^1.0.0"
 
 
 [build-system]

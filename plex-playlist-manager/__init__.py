@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, blueprints, jsonify
 import os
 from flask_executor import Executor
-from .spotiplexfunctions import playlistsync
-from modules.config_handler import read_config, write_config
-from .syncer import syncall
+from .ppm_modules.spotiplex import Spotiplex
+from .ppm_modules.confighandler import read_config, write_config
 
 # import .spotify as sp
 # import lidarr as lidarr
