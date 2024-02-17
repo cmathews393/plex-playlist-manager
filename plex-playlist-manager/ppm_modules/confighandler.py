@@ -4,13 +4,16 @@ import os
 config_file = "config.toml"
 
 
-def ensure_config_exists():
+def ensure_config_exists(config_file):
     """Ensure the configuration file exists, and create it with default values if it doesn't."""
-    if not os.path.exists(config_file):
-        print("config file missing!")
-        print("Current Working Directory:", os.getcwd())
-        with open(config_file, "w") as file:
-            rtoml.dump({}, file)
+    try:
+        if not os.path.exists(config_file):
+            print("Config file missing!")
+            print("Current Working Directory:", os.getcwd())
+            with open(config_file, "w") as file:
+                rtoml.dump({}, file)
+    except IOError as e:
+        print("Error creating config file:", e)
 
 
 def read_config(service):

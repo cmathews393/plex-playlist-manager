@@ -1,7 +1,7 @@
-from plex import PlexService
-from spotify import SpotifyService
-from lidarr import LidarrAPI as lapi
-from confighandler import read_config, write_config
+from .plex import PlexService
+from .spotify import SpotifyService
+from .lidarr import LidarrAPI as lapi
+from .confighandler import read_config, write_config
 import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 import schedule

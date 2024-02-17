@@ -71,7 +71,7 @@ def create_app(test_config=None):
     @app.route("/<service>", methods=["GET"])
     def service_settings(service):
         config = read_config(service)  # This function reads from the TOML file
-        return render_template("settings.html.j2", service=service, config=config)
+        return render_template("settings.html.j2", service=service, config=config, serviceproper=service.capitalize())
 
     @app.route("/<service>_submit", methods=["POST"])
     def submit_service_settings(service):
