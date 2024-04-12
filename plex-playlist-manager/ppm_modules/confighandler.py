@@ -18,7 +18,7 @@ def ensure_config_exists(config_file):
 
 def read_config(service):
     print("reading config")
-    ensure_config_exists()  # Check if config file exists
+    ensure_config_exists(config_file)  # Check if config file exists
     with open(config_file, "r") as file:
         config = rtoml.load(file)
     return config.get(service, {})
@@ -26,7 +26,7 @@ def read_config(service):
 
 def write_config(service, data):
     print("writing config")
-    ensure_config_exists()  # Check if config file exists
+    ensure_config_exists(config_file)  # Check if config file exists
     with open(config_file, "r") as file:
         config = rtoml.load(file)
     config[service] = data

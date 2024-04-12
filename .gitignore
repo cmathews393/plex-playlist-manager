@@ -176,3 +176,4 @@ pyrightconfig.json
 config.toml
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+.vscode/settings.json
