@@ -1,5 +1,5 @@
 import json
-from .confighandler import read_config
+from confighandler import read_config
 import httpx
 # test
 
@@ -8,7 +8,7 @@ class RadarrAPI:
     def __init__(self):
         self.config = read_config("radarr")
         self.base_url = self.config.get("url")
-        self.api_key = self.config.get("api_key")
+        self.api_key = self.config.get("apikey")
         self.headers = {"X-Api-Key": self.api_key}
 
     def make_request(self, endpoint_path=""):
@@ -20,27 +20,23 @@ class RadarrAPI:
             with open("data_file.json", "w") as file:
                 json.dump(data, file, indent=4)
             return data
-        except requests.RequestException as e:
-            print(f"Error during request: {e}")
+        except:
+            print("Error during request:")
             return None
 
-    def get_radarr_lists(self):
-        result = self.make_request
-    def get_lidarr_playlists(self):
-        result = self.make_request(
-            endpoint_path="/api/v1/importlist"
-        )  # Specify the actual endpoint path for Lidarr API
-        playlists = []
-
-        if result:
-            for entry in result:
-                if entry.get("listType") == "spotify":
-                    playlists.extend(
-                        [
-                            field.get("value", [])
-                            for field in entry.get("fields", [])
-                            if field.get("name") == "playlistIds"
-                        ]
-                    )
-
-        return playlists
+    def get_radarr_tags(self):
+        
+        endpoint = "/api/v3/tag/detail"
+        result = self.make_request(endpoint)
+        user_movies = {}
+        for entry in result:
+            username = entry['label']
+            movie_ids = entry['movieIds']
+            user_movies[username] = movie_ids
+        return user_movies
+    
+    def get_movie_titles(self, id):
+        endpoint = f"/api/v3/movie/{id}"
+        result = self.make_request(endpoint)
+        movie_name = result['title']
+        return movie_name
