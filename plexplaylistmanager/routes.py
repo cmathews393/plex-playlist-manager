@@ -27,17 +27,10 @@ def init_app_routes(app):
         ]
         users = [user.split('_', 2)[2] for user in checked_users]  # Extract usernames from form data keys
 
-        # Collecting notification preference
-        notification_preference = request.form.get('notifications', 'none')
-
-        # Collecting dark mode preference
-        dark_mode_enabled = request.form.get('dark_mode', 'off') == 'on'
-
-        # Prepare data to pass to the configuration function
         config_data = {
             "users": users,
-            "notification_preference": notification_preference,
-            "dark_mode_enabled": dark_mode_enabled
+            # "notification_preference": notification_preference,
+            # "dark_mode_enabled": dark_mode_enabled
         }
 
         write_config("ppm", config_data)
@@ -51,6 +44,16 @@ def init_app_routes(app):
         movies = ppm.radarr_tag_sync2(plex_users)  
         return render_template('syncing.html.j2', plex_users=plex_users, user_movies=movies)
     
+    @app.route('/start-sync', methods=['POST'])
+    def start_sync():
+        # Assuming the sync process is encapsulated in a function, call it here
+        # Example: result = start_sync_process()
+        
+        # Flash message to user
+        flash('Sync has started!', 'success')
+        
+        # Redirect back to the sync dashboard
+        return redirect(url_for('sync_dashboard'))
 
     @app.route("/logs")
     def logs():

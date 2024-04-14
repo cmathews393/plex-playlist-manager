@@ -37,12 +37,17 @@ def radarr_tag_sync2(users: List[str]) -> Dict[str, List[str]]:
                 user_movies[user_key].append(movie_title)  # Append movie title to the appropriate user
 
     # Optionally, create a request list in Plex for each user
-    # for user in plex_users:
-    #     if user_movies[user]:  # Check if there are movies listed
-    #         plex.create_requests_list("Movies", user_movies[user], user)
+    for user in plex_users:
+        if user_movies[user]:  # Check if there are movies listed
+            plex.create_requests_list("Movies", user_movies[user], user)
 
-    return user_movies
+    return plex_users, user_movies
 
+def sync_movies(plex_users, user_movies):
+    plex = PlexService()
+    for user in plex_users:
+        if user_movies[user]:  # Check if there are movies listed
+            plex.create_requests_list("Movies", user_movies[user], user)
 
 def sonarr_tag_sync(users: List):
     plex = PlexService()
