@@ -1,0 +1,83 @@
+{%extends 'base.html.j2'%}
+{%block content%}
+
+<head>
+  <title>{{ serviceproper }}</title>
+  <style>
+    .settings-card {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="settings-card">
+    <div class="header">
+      <h2>{{ serviceproper }} Settings</h2>
+    </div>
+    <div id="message-container"></div>
+    <form id="settings-form" action="/{{ service }}_submit" method="post">
+      <div class="form-group">
+        <label for="apikey">API Key</label>
+        <input type="text" id="apikey" name="apikey" value="{{ config.get('apikey', '') }}">
+      </div>
+
+      <!-- URL Field -->
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input type="text" id="url" name="url" value="{{ config.get('url', '') }}">
+      </div>
+
+
+      <button type="submit">Save Settings</button>
+    </form>
+    <script>
+      document.getElementById('settings-form').onsubmit = function (event) {
+        event.preventDefault(); // Prevents the default form submission action
+
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', this.action, true);
+        xhr.onload = function () {
+          // Handle the response
+          var response = JSON.parse(xhr.responseText);
+          var messageContainer = document.getElementById('message-container');
+          messageContainer.innerHTML = response.message;
+        };
+        xhr.send(formData);
+      };
+    </script>
+  </div>
+
+</body>
+
+{%endblock%}
