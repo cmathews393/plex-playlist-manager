@@ -1,3 +1,40 @@
-{%extends 'base.html.j2'%}
-{%block content%}
+{% extends 'base.html.j2' %}
 
+{% block title %}
+Sync Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Plex Sync Dashboard</h1>
+
+    <!-- Accordion Menu for Plex Users and their Movies -->
+    <div class="accordion" id="usersAccordion">
+        {% for user, movies in user_movies.items() %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ loop.index }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                    {{ user }} ({{ movies|length }} Movies)
+                </button>
+            </h2>
+            <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#usersAccordion">
+                <div class="accordion-body">
+                    <ul class="list-group list-group-flush">
+                        {% for movie in movies %}
+                        <li class="list-group-item">{{ movie }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Sync Button -->
+    <div class="my-3">
+        <form action="{{ url_for('sync_dashboard') }}" method="post">
+            <button type="submit" class="btn btn-primary">Start Sync</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

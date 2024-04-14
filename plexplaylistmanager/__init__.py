@@ -2,8 +2,7 @@ from flask import Flask
 from flask_bootstrap import Bootstrap5
 import os
 from .ppm_modules.plex import PlexService
-import dash
-from dash import html, dcc
+
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)

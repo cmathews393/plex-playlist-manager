@@ -231,6 +231,42 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-admin"
+version = "1.6.1"
+description = "Simple and extensible admin interface framework for Flask"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "Flask-Admin-1.6.1.tar.gz", hash = "sha256:24cae2af832b6a611a01d7dc35f42d266c1d6c75a426b869d8cb241b78233369"},
+    {file = "Flask_Admin-1.6.1-py3-none-any.whl", hash = "sha256:fd8190f1ec3355913a22739c46ed3623f1d82b8112cde324c60a6fc9b21c9406"},
+]
+
+[package.dependencies]
+Flask = ">=0.7"
+wtforms = "*"
+
+[package.extras]
+aws = ["boto"]
+azure = ["azure-storage-blob"]
+
+[[package]]
+name = "flask-executor"
+version = "1.0.0"
+description = "An easy to use Flask wrapper for concurrent.futures"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Flask-Executor-1.0.0.tar.gz", hash = "sha256:4bc113def5d9f1c7ff272ff7ba09f843468eab80469bdbd21625a111b2c8ae7b"},
+    {file = "Flask_Executor-1.0.0-py3-none-any.whl", hash = "sha256:c044dc6393326a83351e69e4ddf3686270abffeac2b599260cebf0ea5d1e93de"},
+]
+
+[package.dependencies]
+Flask = "*"
+
+[package.extras]
+test = ["flask-sqlalchemy", "pytest"]
+
+[[package]]
 name = "h11"
 version = "0.14.0"
 description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
@@ -629,4 +665,4 @@ email = ["email-validator"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3eb5d3814aeb8b6687ec1c5b79b31cd599f172db03451dac086807fee8105dd2"
+content-hash = "55fa2eaf986ab0d6e76dc04410402f5155608fddc99c8a949fbd472b4cb96b27"

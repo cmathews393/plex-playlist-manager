@@ -1,5 +1,5 @@
 import json
-from confighandler import read_config
+from .confighandler import read_config
 import httpx
 # test
 
@@ -8,7 +8,7 @@ class RadarrAPI:
     def __init__(self):
         self.config = read_config("radarr")
         self.base_url = self.config.get("url")
-        self.api_key = self.config.get("apikey")
+        self.api_key = self.config.get("api_key")
         self.headers = {"X-Api-Key": self.api_key}
 
     def make_request(self, endpoint_path=""):

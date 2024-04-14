@@ -48,7 +48,7 @@
     <form id="settings-form" action="/{{ service }}_submit" method="post">
       <div class="form-group">
         <label for="apikey">API Key</label>
-        <input type="text" id="apikey" name="apikey" value="{{ config.get('apikey', '') }}">
+        <input type="text" id="apikey" name="apikey" value="{{ config.get('api_key', '') }}">
       </div>
 
       <!-- URL Field -->
