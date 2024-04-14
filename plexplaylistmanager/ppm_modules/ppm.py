@@ -1,6 +1,6 @@
-from radarr import RadarrAPI
-from plex import PlexService
-from sonarr import SonarrAPI
+from .radarr import RadarrAPI
+from .plex import PlexService
+from .sonarr import SonarrAPI
 from typing import List
 
 def radarr_tag_sync(users: List):

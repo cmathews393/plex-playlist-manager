@@ -14,14 +14,35 @@ def init_app_routes(app):
     @app.route("/preferences")
     def config():
         plex_users=current_app.plex_service.get_plex_users()
-        return render_template("preferences.html.j2", plex_users=plex_users)
+        config_data = read_config("ppm")
+        checked_users = config_data.get("users", [])
+        return render_template("preferences.html.j2", plex_users=plex_users, checked_users=checked_users)
     
     @app.route("/submit-preferences", methods=["POST"])
     def save_prefs():
-        # Logic to save preferences goes here (to be implemented)
-        
-        flash('Settings were saved successfully!', 'success')  # Flash a success message
-        return redirect(url_for('preferences'))  # Redirect back to the preferences page
+
+        checked_users = [
+            user for user in request.form
+            if user.startswith('plex_user_') and request.form.get(user) == 'on'
+        ]
+        users = [user.split('_', 2)[2] for user in checked_users]  # Extract usernames from form data keys
+
+        # Collecting notification preference
+        notification_preference = request.form.get('notifications', 'none')
+
+        # Collecting dark mode preference
+        dark_mode_enabled = request.form.get('dark_mode', 'off') == 'on'
+
+        # Prepare data to pass to the configuration function
+        config_data = {
+            "users": users,
+            "notification_preference": notification_preference,
+            "dark_mode_enabled": dark_mode_enabled
+        }
+
+        write_config("ppm", config_data)
+        flash('Settings were saved successfully!', 'success')
+        return redirect(url_for('config'))
 
     @app.route("/sync")
     def syncing():

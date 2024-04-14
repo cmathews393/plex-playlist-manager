@@ -1,7 +1,7 @@
 import requests
 import urllib3
 from plexapi.server import PlexServer
-from confighandler import read_config
+from .confighandler import read_config
 from typing import List
 
 class PlexService:
@@ -20,9 +20,17 @@ class PlexService:
         return PlexServer(self.server_url, self.server_token, session=self.session)
     
     def get_plex_users(self):
+        return_users = []
         try:
             users = self.plex.myPlexAccount().users()
-            return [user.username for user in users]  # Assuming 'title' holds the user's name
+            for user in users:
+                if user.username is not None and user.username != "":
+                    return_users.append(user.username)
+                else: 
+                    return_users.append(user.title)
+
+            
+            return return_users
         except Exception as e:
             #TODO log this
             return None

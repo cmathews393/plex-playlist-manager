@@ -1,6 +1,6 @@
 import json
 import httpx
-from confighandler import read_config
+from .confighandler import read_config
 
 class SonarrAPI:
     def __init__(self):

@@ -4,13 +4,13 @@
 <div class="container mt-4">
     <h2>Preferences Settings</h2>
     <form action="/submit-preferences" method="POST">
-        <!-- Plex Users to Sync -->
         <div class="mb-3">
             <label class="form-label">Plex Users to Sync</label>
             {% if plex_users %}
                 {% for user in plex_users %}
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="user_{{ loop.index }}" name="plex_user_{{ user }}" role="switch">
+                    <input class="form-check-input" type="checkbox" id="user_{{ loop.index }}" name="plex_user_{{ user }}" role="switch"
+                        {{ 'checked' if user in checked_users else '' }}>
                     <label class="form-check-label" for="user_{{ loop.index }}">{{ user }}</label>
                 </div>
                 {% endfor %}
