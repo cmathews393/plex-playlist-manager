@@ -1,5 +1,3 @@
-from typing import List
-
 import requests
 import urllib3
 from plexapi.server import PlexServer
@@ -8,7 +6,10 @@ from .confighandler import read_config
 
 
 class PlexService:
-    def __init__(self):
+    """Class for interacting with Plex."""
+
+    def __init__(self: "PlexService") -> None:
+        """Init func for Plex class."""
         self.config = read_config("plex")
         self.server_url = self.config.get("url")
         self.server_token = self.config.get("api_key")
@@ -16,13 +17,15 @@ class PlexService:
         self.replace = self.config.get("replace")
         self.requests_playlist = self.config.get("requests_playlist"), "My Requests"
 
-    def connect_plex(self):
+    def connect_plex(self: "PlexService") -> PlexServer:
+        """Connects to Plex Server, disables some cert verification."""
         self.session = requests.Session()
         self.session.verify = False
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         return PlexServer(self.server_url, self.server_token, session=self.session)
 
-    def get_plex_users(self):
+    def get_plex_users(self: "PlexService") -> list[str]:
+        """Gets a list of all plex users on server."""
         return_users = []
         try:
             users = self.plex.myPlexAccount().users()
@@ -37,7 +40,7 @@ class PlexService:
             # TODO log this
             return None
 
-    def check_tracks_in_plex(self, spotify_tracks):
+    def check_tracks_in_plex(self: "PlexService", spotify_tracks):
         music_lib = self.plex.library.section("Music")
         plex_tracks = []
         orig_tracks = []
@@ -59,7 +62,12 @@ class PlexService:
 
         return plex_tracks
 
-    def create_or_update_playlist(self, playlist_name, playlist_id, tracks):
+    def create_or_update_playlist(
+        self: "PlexService",
+        playlist_name,
+        playlist_id,
+        tracks,
+    ):
         existing_playlist = self.find_playlist_by_name(playlist_name)
         if existing_playlist:
             if self.replace:
@@ -71,14 +79,14 @@ class PlexService:
         else:
             return self.create_playlist(playlist_name, playlist_id, tracks)
 
-    def find_playlist_by_name(self, playlist_name):
+    def find_playlist_by_name(self: "PlexService", playlist_name):
         playlists = self.plex.playlists()
         for playlist in playlists:
             if playlist.title == playlist_name:
                 return playlist
         return None
 
-    def create_playlist(self, playlist_name, playlist_id, tracks):
+    def create_playlist(self: "PlexService", playlist_name, playlist_id, tracks):
         try:
             new_playlist = self.plex.createPlaylist(playlist_name, items=tracks)
             return new_playlist
@@ -87,7 +95,10 @@ class PlexService:
             return None
 
     def create_requests_list(
-        self, section_name: str, titles: List[str], user_name: str
+        self: "PlexService",
+        section_name: str,
+        titles: list[str],
+        user_name: str,
     ) -> str:
         """Adds a list of titles to a new playlist on a Plex server."""
         print("got users")
@@ -107,7 +118,7 @@ class PlexService:
                     return "User not found."  # It's good to return after finding no user to stop execution
 
         print(
-            f"connecting as user: {user.username}"
+            f"connecting as user: {user.username}",
         )  # user.username preserves the actual case
         plex = PlexServer(
             self.server_url,
@@ -125,7 +136,7 @@ class PlexService:
             if search_result:
                 # If search_result is not empty, append the found movie objects to items
                 items.extend(
-                    search_result
+                    search_result,
                 )  # Assuming search_result is a list of Movie objects
                 print(f"Found and added: {[item.title for item in search_result]}")
             else:
