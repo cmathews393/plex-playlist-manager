@@ -6,7 +6,7 @@ class SonarrAPI:
     def __init__(self):
         self.config = read_config("sonarr")
         self.base_url = self.config.get("url")
-        self.api_key = self.config.get("apikey")
+        self.api_key = self.config.get("api_key")
         self.headers = {"X-Api-Key": self.api_key}
 
     def make_request(self, endpoint_path=""):

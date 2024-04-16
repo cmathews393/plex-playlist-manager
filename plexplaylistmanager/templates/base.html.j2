@@ -1,69 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
     {{ bootstrap.load_css() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu-style.css') }}">
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <!-- Icon/Logo slot -->
-        <a class="navbar-brand" href="#">
-            <img src="{{ url_for('static', filename='img/PPM.png') }}" alt="Logo" style="height: 60px;">
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Icon/Logo slot -->
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/PPM.png') }}" alt="Logo" style="height: 60px;">
+            </a>
 
-        <!-- Toggle button for mobile view -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- Toggle button for mobile view -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!-- Navbar links and dropdowns -->
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
-                </li>
-                <!-- Dropdown for Plex -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="plexDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Plex
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="plexDropdown">
-                        {# <li><a class="dropdown-item" href="/playlists">Playlists</a></li> #}
-                        <li><a class="dropdown-item" href="/sync">Sync</a></li>
-                    </ul>
-                </li>
-                <!-- Dropdown for Settings -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Settings
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
-                        <li><a class="dropdown-item" href="/preferences">Preferences</a></li>
-                        <li><a class="dropdown-item" href="/settings/radarr">Radarr</a></li>
-                        <li><a class="dropdown-item" href="/settings/sonarr">Sonarr</a></li>
-                        <li><a class="dropdown-item" href="/settings/lidarr">Lidarr</a></li>
-                        {# <li><a class="dropdown-item" href="/apis">APIs</a></li> #}
-                    </ul>
-                </li>
-                <!-- Help Link -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Help</a>
-                </li>
-            </ul>
+            <!-- Navbar links and dropdowns -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+                    </li>
+                    <!-- Dropdown for Plex -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="plexDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Plex
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="plexDropdown">
+                            {# <li><a class="dropdown-item" href="/playlists">Playlists</a></li> #}
+                            <li><a class="dropdown-item" href="/sync">Sync</a></li>
+                        </ul>
+                    </li>
+                    <!-- Dropdown for Settings -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Settings
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+                            <li><a class="dropdown-item" href="/preferences">Preferences</a></li>
+                            <li><a class="dropdown-item" href="/settings/radarr">Radarr</a></li>
+                            <li><a class="dropdown-item" href="/settings/sonarr">Sonarr</a></li>
+                            <li><a class="dropdown-item" href="/settings/lidarr">Lidarr</a></li>
+                            {# <li><a class="dropdown-item" href="/apis">APIs</a></li> #}
+                        </ul>
+                    </li>
+                    <!-- Help Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Help</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        <!-- Your Flask view content goes here -->
+        {% endblock content %}
     </div>
-</nav>
 
-<div class="container mt-4">
-    {% block content %}
-    <!-- Your Flask view content goes here -->
-    {% endblock content %}
-</div>
-
-{{ bootstrap.load_js() }}
+    {{ bootstrap.load_js() }}
 </body>
+
 </html>
