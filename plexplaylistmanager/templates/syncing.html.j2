@@ -1,3 +1,51 @@
-{%extends 'base.html.j2'%}
-{%block content%}
+{% extends 'base.html.j2' %}
 
+{% block title %}
+Sync Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Plex Sync Dashboard</h1>
+    {% if user_items %}
+    <div class="accordion" id="usersAccordion">
+        {% for user, content in user_items %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ loop.index }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse{{ loop.index }}" aria-expanded="false"
+                    aria-controls="collapse{{ loop.index }}">
+                    {{ user }} ({{ content.movies|length }} Movies, {{ content.shows|length }} Shows)
+                </button>
+            </h2>
+            <div id="collapse{{ loop.index }}" class="accordion-collapse collapse"
+                aria-labelledby="heading{{ loop.index }}" data-bs-parent="#usersAccordion">
+                <div class="accordion-body">
+                    <strong>Movies:</strong>
+                    <ul class="list-group list-group-flush">
+                        {% for movie in content.movies %}
+                        <li class="list-group-item">{{ movie }}</li>
+                        {% endfor %}
+                    </ul>
+                    <strong>TV Shows:</strong>
+                    <ul class="list-group list-group-flush">
+                        {% for show in content.shows %}
+                        <li class="list-group-item">{{ show }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No data available to display.</p>
+    {% endif %}
+
+    <div class="my-3">
+        <form action="{{ url_for('start_sync') }}" method="post">
+            <button type="submit" class="btn btn-primary">Start Sync</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

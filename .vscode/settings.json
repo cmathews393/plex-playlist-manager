@@ -1,0 +1,66 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.tree.indent": 15,
+    "workbench.tree.renderIndentGuides": "always",
+    "workbench.colorCustomizations": {
+        "tree.indentGuidesStroke": "#05ef3c"
+    },
+    "python.languageServer": "Default",
+    "python.analysis.typeCheckingMode": "strict",
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.formatOnType": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        }
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.markdownlint": "explicit"
+        }
+    },
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "editor.linkedEditing": true,
+    "editor.rulers": [88],
+    "editor.stickyScroll.enabled": false,
+    "editor.colorDecorators": true,
+    "files.readonlyFromPermissions": true,
+    "files.readonlyInclude": {
+        "**/.venv/**": true,
+        "**/node_modules/**": true
+    },
+    "explorer.excludeGitIgnore": false,
+    "git.mergeEditor": true,
+    "git.enableCommitSigning": true,
+    "git.autofetch": true,
+    "window.commandCenter": true,
+    "markdown.validate.enabled": true,
+    "explorer.autoRevealExclude": {
+        "**/.venv": true
+    },
+    "ansible.python.interpreterPath": "/usr/bin/python3",
+    "files.autoSave": "onFocusChange",
+    "python.terminal.activateEnvironment": false
+}

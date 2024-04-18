@@ -1,66 +1,104 @@
 {
-    "title": "Care Bears: Big Wish Movie",
-    "originalTitle": "Care Bears: Big Wish Movie",
-    "originalLanguage": {
-        "id": 1,
-        "name": "English"
-    },
-    "alternateTitles": [],
-    "secondaryYearSourceId": 0,
-    "sortTitle": "care bears big wish movie",
-    "sizeOnDisk": 0,
-    "status": "announced",
-    "overview": "Feeling sad that her fellow Care Bears don't seem to appreciate her wishes, Wish Bear uses her wish star, Twinkers, to find some bears who love wishing as much as she does. That's when three new bears move to Care-a-lot...with some very unexpected results.",
+    "title": "Bodies (2023)",
+    "alternateTitles": [
+        {
+            "title": "Cadaveres",
+            "seasonNumber": -1
+        },
+        {
+            "title": "Bodies",
+            "seasonNumber": -1
+        }
+    ],
+    "sortTitle": "bodies 2023",
+    "status": "ended",
+    "ended": true,
+    "overview": "One victim, found dead on a London street. Four detectives, in four different time periods, must solve the mystery to protect Britain's future.",
+    "previousAiring": "2023-10-19T13:00:00Z",
+    "network": "Netflix",
+    "airTime": "09:00",
     "images": [
         {
+            "coverType": "banner",
+            "url": "/MediaCover/492/banner.jpg?lastWrite=638445094075798938",
+            "remoteUrl": "https://artworks.thetvdb.com/banners/v4/series/417257/banners/653543ada17d9.jpg"
+        },
+        {
             "coverType": "poster",
-            "url": "/MediaCover/1228/poster.jpg?lastWrite=638409657287510268",
-            "remoteUrl": "https://image.tmdb.org/t/p/original/aolQObgjpu9QRShA1s6V1zJcaCc.jpg"
+            "url": "/MediaCover/492/poster.jpg?lastWrite=638445094077367107",
+            "remoteUrl": "https://artworks.thetvdb.com/banners/v4/series/417257/posters/653543d2b6ccb.jpg"
+        },
+        {
+            "coverType": "fanart",
+            "url": "/MediaCover/492/fanart.jpg?lastWrite=638445094078929651",
+            "remoteUrl": "https://artworks.thetvdb.com/banners/v4/series/417257/backgrounds/653ac983f3ed3.jpg"
+        },
+        {
+            "coverType": "unknown",
+            "url": "/MediaCover/492/unknown.jpg?lastWrite=638445094080179625",
+            "remoteUrl": "https://artworks.thetvdb.com/banners/v4/series/417257/clearlogo/653543bfcaf04.png"
         }
     ],
-    "website": "",
-    "year": 2005,
-    "youTubeTrailerId": "",
-    "studio": "Lionsgate Home Entertainment",
-    "path": "E:\\PLEX\\Movies\\Care Bears Big Wish Movie (2005)",
-    "qualityProfileId": 8,
-    "hasFile": false,
+    "seasons": [
+        {
+            "seasonNumber": 1,
+            "monitored": true,
+            "statistics": {
+                "previousAiring": "2023-10-19T13:00:00Z",
+                "episodeFileCount": 8,
+                "episodeCount": 8,
+                "totalEpisodeCount": 8,
+                "sizeOnDisk": 7616719795,
+                "releaseGroups": [
+                    "iVy"
+                ],
+                "percentOfEpisodes": 100.0
+            }
+        }
+    ],
+    "year": 2023,
+    "path": "E:\\PLEX\\TV Shows\\Bodies (2023)",
+    "qualityProfileId": 9,
+    "languageProfileId": 1,
+    "seasonFolder": true,
     "monitored": true,
-    "minimumAvailability": "released",
-    "isAvailable": false,
-    "folderName": "E:\\PLEX\\Movies\\Care Bears Big Wish Movie (2005)",
-    "runtime": 75,
-    "cleanTitle": "carebearsbigwishmovie",
-    "imdbId": "tt0472221",
-    "tmdbId": 19018,
-    "titleSlug": "19018",
-    "rootFolderPath": "E:\\PLEX\\Movies\\",
+    "useSceneNumbering": false,
+    "runtime": 57,
+    "tvdbId": 417257,
+    "tvRageId": 0,
+    "tvMazeId": 60737,
+    "firstAired": "2023-10-19T00:00:00Z",
+    "seriesType": "standard",
+    "cleanTitle": "bodies2023",
+    "imdbId": "tt18347622",
+    "titleSlug": "bodies-2023",
+    "rootFolderPath": "E:\\PLEX\\TV Shows\\",
+    "certification": "-16",
     "genres": [
-        "Animation",
-        "Comedy",
-        "Family"
+        "Crime",
+        "Drama",
+        "Mini-Series",
+        "Science Fiction",
+        "Thriller"
     ],
     "tags": [
-        5
+        9
     ],
-    "added": "2024-01-16T01:35:28Z",
+    "added": "2024-02-26T01:56:46.7200025Z",
     "ratings": {
-        "imdb": {
-            "votes": 268,
-            "value": 5.2,
-            "type": "user"
-        },
-        "tmdb": {
-            "votes": 6,
-            "value": 6.5,
-            "type": "user"
-        }
+        "votes": 0,
+        "value": 0.0
     },
-    "popularity": 4.032,
     "statistics": {
-        "movieFileCount": 0,
-        "sizeOnDisk": 0,
-        "releaseGroups": []
+        "seasonCount": 1,
+        "episodeFileCount": 8,
+        "episodeCount": 8,
+        "totalEpisodeCount": 8,
+        "sizeOnDisk": 7616719795,
+        "releaseGroups": [
+            "iVy"
+        ],
+        "percentOfEpisodes": 100.0
     },
-    "id": 1228
+    "id": 492
 }

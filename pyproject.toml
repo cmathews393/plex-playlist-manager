@@ -13,6 +13,8 @@ httpx = "^0.27.0"
 rtoml = "^0.10.0"
 Flask = "^3.0.3"
 Bootstrap-Flask = "^2.4.0"
+flask-admin = "^1.6.1"
+flask-executor = "^1.0.0"
 
 
 [build-system]
