@@ -1,3 +1,5 @@
+import time
+
 from flask import (
     current_app,
     flash,
@@ -29,7 +31,9 @@ def init_app_routes(app):
         config_data = read_config("ppm")
         checked_users = config_data.get("users", [])
         return render_template(
-            "preferences.html.j2", plex_users=plex_users, checked_users=checked_users
+            "preferences.html.j2",
+            plex_users=plex_users,
+            checked_users=checked_users,
         )
 
     @app.route("/submit-preferences", methods=["POST"])
@@ -55,23 +59,27 @@ def init_app_routes(app):
 
     @app.route("/sync")
     def sync_dashboard():
+        start_time = time.time()  # Start timing
+
         plex = current_app.plex_service
         active_users = config.get(
-            "users", []
+            "users",
+            [],
         )  # Fetch user list; assume default as empty list if not set
 
         # Get movies and shows keyed by user
         radarr_users, user_movies = ppm.radarr_tag_sync2(
-            active_users
+            active_users,
         )  # Get only the second item from the tuple (dictionary)
         sonarr_users, user_shows = ppm.sonarr_tag_sync(
-            active_users
+            active_users,
         )  # Get only the second item from the tuple (dictionary)
         print(user_movies)
+
         # Combine movies and shows into a single dictionary for each user
         user_items = {}
         all_users = set(user_movies.keys()).union(
-            set(user_shows.keys())
+            set(user_shows.keys()),
         )  # Combine all unique users from both dicts
         for user in all_users:
             user_items[user] = {
@@ -84,8 +92,13 @@ def init_app_routes(app):
             reverse=True,
         )
 
+        elapsed_time = time.time() - start_time  # End timing
+        print(f"Time elapsed: {elapsed_time:.2f} seconds")  # Print time elapsed
+
         return render_template(
-            "syncing.html.j2", plex_users=active_users, user_items=sorted_user_items
+            "syncing.html.j2",
+            plex_users=active_users,
+            user_items=sorted_user_items,
         )
 
     @app.route("/start-sync", methods=["POST"])
@@ -116,5 +129,5 @@ def init_app_routes(app):
         url = request.form["url"]
         write_config(service, {"api_key": api_key, "url": url})
         return jsonify(
-            {"message": f"{service.capitalize()} settings updated successfully!"}
+            {"message": f"{service.capitalize()} settings updated successfully!"},
         )

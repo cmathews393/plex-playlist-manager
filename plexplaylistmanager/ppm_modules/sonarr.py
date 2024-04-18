@@ -1,6 +1,9 @@
-import json
+import sqlite3
+
 import httpx
+
 from .confighandler import read_config
+
 
 class SonarrAPI:
     def __init__(self):
@@ -15,8 +18,6 @@ class SonarrAPI:
             response = httpx.get(full_url, headers=self.headers)
             response.raise_for_status()
             data = response.json()
-            with open("data_file.json", "w") as file:
-                json.dump(data, file, indent=4)
             return data
         except Exception as e:
             print(f"Error during request: {e}")
@@ -28,16 +29,38 @@ class SonarrAPI:
         user_shows = {}
         if result:
             for entry in result:
-                username = entry['label']
-                show_ids = entry['seriesIds']  # In Sonarr, it's seriesIds not movieIds
+                username = entry["label"]
+                show_ids = entry["seriesIds"]  # In Sonarr, it's seriesIds not movieIds
                 user_shows[username] = show_ids
         return user_shows
-    
-    def get_show_titles(self, id):
-        endpoint = f"/api/v3/series/{id}"  # In Sonarr, it's series not movie
-        result = self.make_request(endpoint)
-        if result:
-            show_name = result.get('title', 'Unknown Show')
-            return show_name
-        return "Unknown Show"  # Return a default name if the show is not found
 
+    def get_show_titles(self, show_id: int) -> str:
+        """Retrieve show title from local DB or API if not found."""
+        conn = sqlite3.connect("shows.db")
+        cursor = conn.cursor()
+        cursor.execute(
+            "CREATE TABLE IF NOT EXISTS shows (id INTEGER PRIMARY KEY, title TEXT)"
+        )
+        conn.commit()
+
+        # Check if the show is already in the database
+        cursor.execute("SELECT title FROM shows WHERE id = ?", (show_id,))
+        result = cursor.fetchone()
+
+        if result:
+            title = result[0]
+        else:
+            # Make the API request if show not found in DB
+            endpoint = f"/api/v3/series/{show_id}"
+            api_result = self.make_request(endpoint)
+            title = api_result.get("title", "Unknown Show")
+
+            # Insert the new show title into the database
+            cursor.execute(
+                "INSERT INTO shows (id, title) VALUES (?, ?)", (show_id, title)
+            )
+            conn.commit()
+
+        cursor.close()
+        conn.close()
+        return title
