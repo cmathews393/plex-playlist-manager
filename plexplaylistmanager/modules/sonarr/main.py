@@ -2,7 +2,7 @@ import sqlite3
 
 import httpx
 
-from .confighandler import read_config
+from ..confighandler.main import read_config
 
 
 class SonarrAPI:

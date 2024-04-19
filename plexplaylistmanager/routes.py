@@ -11,8 +11,8 @@ from flask import (
 )
 from flask_executor import Executor
 
-from .ppm_modules import ppm
-from .ppm_modules.confighandler import read_config, write_config
+from . import ppm
+from .modules.confighandler.main import read_config, write_config
 
 executor = Executor()
 

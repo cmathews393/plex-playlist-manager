@@ -1,6 +1,6 @@
 import json
 import sqlite3
-from .confighandler import read_config
+from ..confighandler.main import read_config
 import httpx
 # test
 

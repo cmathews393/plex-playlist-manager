@@ -1,7 +1,7 @@
-from .plex import PlexService
-from .spotify import SpotifyService
-from .lidarr import LidarrAPI as lapi
-from .confighandler import read_config, write_config
+from ..plex.main import PlexService
+from .main import SpotifyService
+from ..lidarr.main import LidarrAPI as lapi
+from ..confighandler.main import read_config, write_config
 import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 import schedule
@@ -177,5 +177,3 @@ class Spotiplex:
         write_config("spotiplex", spotiplex_config)
 
         print("Configuration complete!")
-
-

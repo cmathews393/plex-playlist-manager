@@ -1,5 +1,5 @@
-from .radarr import RadarrAPI
-from .sonarr import SonarrAPI
+from .modules.radarr.main import RadarrAPI
+from .modules.sonarr.main import SonarrAPI
 
 
 def radarr_tag_sync2(users: list[str]) -> dict[str, list[str]]:
