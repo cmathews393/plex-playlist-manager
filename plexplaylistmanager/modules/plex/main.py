@@ -2,7 +2,7 @@ import requests
 import urllib3
 from plexapi.server import PlexServer
 
-from ..confighandler.main import read_config
+from plexplaylistmanager.modules.confighandler.main import read_config
 
 
 class PlexService:

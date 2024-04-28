@@ -1,12 +1,15 @@
-from ..plex.main import PlexService
-from .main import SpotifyService
-from ..lidarr.main import LidarrAPI as lapi
-from ..confighandler.main import read_config, write_config
 import concurrent.futures
-from concurrent.futures import ThreadPoolExecutor
-import schedule
-import time
 import os
+import time
+from concurrent.futures import ThreadPoolExecutor
+
+import schedule
+
+from plexplaylistmanager.modules.confighandler.main import read_config, write_config
+from plexplaylistmanager.modules.lidarr.main import LidarrAPI as lapi
+from plexplaylistmanager.modules.plex.main import PlexService
+
+from .main import SpotifyService
 
 
 class Spotiplex:
@@ -22,7 +25,8 @@ class Spotiplex:
                 "worker_count": int(os.environ.get("WORKERS", 1)),
                 "seconds_interval": int(os.environ.get("INTERVAL", 86400)),
                 "manual_playlists": os.environ.get(
-                    "SPOTIPLEX_MANUAL_PLAYLISTS", "False"
+                    "SPOTIPLEX_MANUAL_PLAYLISTS",
+                    "False",
                 ),
             }
             write_config("spotiplex", spotiplex_config)
@@ -114,7 +118,11 @@ class Spotiplex:
         )
 
     def process_playlist(
-        self, playlists, plex_service, spotify_service, replace_existing
+        self,
+        playlists,
+        plex_service,
+        spotify_service,
+        replace_existing,
     ):
         for playlist in playlists:
             try:
@@ -124,7 +132,9 @@ class Spotiplex:
                 spotify_tracks = spotify_service.get_playlist_tracks(playlist_id)
                 plex_tracks = plex_service.check_tracks_in_plex(spotify_tracks)
                 plex_service.create_or_update_playlist(
-                    playlist_name, playlist_id, plex_tracks
+                    playlist_name,
+                    playlist_id,
+                    plex_tracks,
                 )
                 print(f"Processed playlist '{playlist_name}'.")
             except Exception as e:
@@ -134,20 +144,20 @@ class Spotiplex:
         # Config for Spotiplex
 
         print(
-            "Welcome to Spotiplex! It seems this is your first run of the application, please enter your configuration variables below. Press Enter to continue..."
+            "Welcome to Spotiplex! It seems this is your first run of the application, please enter your configuration variables below. Press Enter to continueplexplaylistmanager.modules..",
         )
         spotiplex_config = {
             "lidarr_sync": input("Enter Lidarr sync option (True/False): "),
             "plex_users": input("Enter comma-separated Plex user names: "),
             "worker_count": int(
                 input(
-                    "Enter the number of worker threads (Not recommened to exceed core count. 5 is usually a good value.): "
-                )
+                    "Enter the number of worker threads (Not recommened to exceed core count. 5 is usually a good value.): ",
+                ),
             ),
             "seconds_interval": int(
                 input(
-                    "Enter the interval in seconds for scheduling, set to 0 if you don't want the script to repeat: "
-                )
+                    "Enter the interval in seconds for scheduling, set to 0 if you don't want the script to repeat: ",
+                ),
             ),
             "manual_playlists": input("Enter manual playlists (True/False): "),
         }

@@ -2,7 +2,7 @@ import sqlite3
 
 import httpx
 
-from ..confighandler.main import read_config
+from plexplaylistmanager.modules.confighandler.main import read_config
 
 
 class SonarrAPI:
@@ -36,10 +36,10 @@ class SonarrAPI:
 
     def get_show_titles(self, show_id: int) -> str:
         """Retrieve show title from local DB or API if not found."""
-        conn = sqlite3.connect("shows.db")
+        conn = sqlite3.connect("ppm.db")
         cursor = conn.cursor()
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS shows (id INTEGER PRIMARY KEY, title TEXT)"
+            "CREATE TABLE IF NOT EXISTS shows (id INTEGER PRIMARY KEY, title TEXT)",
         )
         conn.commit()
 
@@ -57,7 +57,8 @@ class SonarrAPI:
 
             # Insert the new show title into the database
             cursor.execute(
-                "INSERT INTO shows (id, title) VALUES (?, ?)", (show_id, title)
+                "INSERT INTO shows (id, title) VALUES (?, ?)",
+                (show_id, title),
             )
             conn.commit()
 

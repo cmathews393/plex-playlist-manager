@@ -11,8 +11,8 @@ from flask import (
 )
 from flask_executor import Executor
 
-from . import ppm
-from .modules.confighandler.main import read_config, write_config
+from plexplaylistmanager import ppm
+from plexplaylistmanager.modules.confighandler.main import read_config, write_config
 
 executor = Executor()
 
@@ -57,6 +57,10 @@ def init_app_routes(app):
         flash("Settings were saved successfully!", "success")
         return redirect(url_for("preferences"))
 
+    @app.route("/syncsettings")
+    def syncsettings():
+        return render_template("syncsettings.html.j2")
+
     @app.route("/sync")
     def sync_dashboard():
         start_time = time.time()  # Start timing
@@ -74,21 +78,25 @@ def init_app_routes(app):
         sonarr_users, user_shows = ppm.sonarr_tag_sync(
             active_users,
         )  # Get only the second item from the tuple (dictionary)
-        print(user_movies)
+        lidarr_users, user_artists = ppm.lidarr_tag_sync(active_users)
 
         # Combine movies and shows into a single dictionary for each user
         user_items = {}
         all_users = set(user_movies.keys()).union(
             set(user_shows.keys()),
+            set(user_artists.keys()),
         )  # Combine all unique users from both dicts
         for user in all_users:
             user_items[user] = {
                 "movies": user_movies.get(user, []),
                 "shows": user_shows.get(user, []),
+                "artists": user_artists.get(user, []),
             }
         sorted_user_items = sorted(
             user_items.items(),
-            key=lambda item: len(item[1]["movies"]) + len(item[1]["shows"]),
+            key=lambda item: len(item[1]["movies"])
+            + len(item[1]["shows"])
+            + len(item[1].get("artists", ["Test"])),
             reverse=True,
         )
 

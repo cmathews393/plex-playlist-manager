@@ -1,7 +1,9 @@
+from datetime import date
+
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-from datetime import date
-from ..confighandler.main import read_config
+
+from plexplaylistmanager.modules.confighandler.main import read_config
 
 
 class SpotifyService:
@@ -13,7 +15,8 @@ class SpotifyService:
 
     def connect_spotify(self):
         auth_manager = SpotifyClientCredentials(
-            client_id=self.client_id, client_secret=self.client_secret
+            client_id=self.client_id,
+            client_secret=self.client_secret,
         )
         return spotipy.Spotify(auth_manager=auth_manager)
 
@@ -26,7 +29,7 @@ class SpotifyService:
                     [
                         (item["track"]["name"], item["track"]["artists"][0]["name"])
                         for item in results["items"]
-                    ]
+                    ],
                 )
                 results = self.sp.next(results) if results["next"] else None
         except Exception as e:

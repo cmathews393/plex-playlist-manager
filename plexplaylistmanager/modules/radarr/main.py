@@ -1,7 +1,9 @@
-import json
 import sqlite3
-from ..confighandler.main import read_config
+
 import httpx
+
+from plexplaylistmanager.modules.confighandler.main import read_config
+
 # test
 
 
@@ -35,10 +37,10 @@ class RadarrAPI:
 
     def get_movie_titles(self, movie_id: int) -> str:
         """Retrieve movie title from local DB or API if not found."""
-        conn = sqlite3.connect("movies.db")
+        conn = sqlite3.connect("ppm.db")
         cursor = conn.cursor()
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS movies (id INTEGER PRIMARY KEY, title TEXT)"
+            "CREATE TABLE IF NOT EXISTS movies (id INTEGER PRIMARY KEY, title TEXT)",
         )
         conn.commit()
 
@@ -56,7 +58,8 @@ class RadarrAPI:
 
             # Insert the new movie title into the database
             cursor.execute(
-                "INSERT INTO movies (id, title) VALUES (?, ?)", (movie_id, title)
+                "INSERT INTO movies (id, title) VALUES (?, ?)",
+                (movie_id, title),
             )
             conn.commit()
 

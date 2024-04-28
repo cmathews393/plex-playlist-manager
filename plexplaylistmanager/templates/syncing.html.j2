@@ -15,7 +15,8 @@ Sync Dashboard
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapse{{ loop.index }}" aria-expanded="false"
                     aria-controls="collapse{{ loop.index }}">
-                    {{ user }} ({{ content.movies|length }} Movies, {{ content.shows|length }} Shows)
+                    {{ user }} ({{ content.movies|length }} Movies, {{ content.shows|length }} Shows, {{
+                    content.artists|length}} Artists)
                 </button>
             </h2>
             <div id="collapse{{ loop.index }}" class="accordion-collapse collapse"
@@ -31,6 +32,12 @@ Sync Dashboard
                     <ul class="list-group list-group-flush">
                         {% for show in content.shows %}
                         <li class="list-group-item">{{ show }}</li>
+                        {% endfor %}
+                    </ul>
+                    <strong>Artists:</strong>
+                    <ul class="list-group list-group-flush">
+                        {% for artist in content.artists %}
+                        <li class="list-group-item">{{ artist }}</li>
                         {% endfor %}
                     </ul>
                 </div>

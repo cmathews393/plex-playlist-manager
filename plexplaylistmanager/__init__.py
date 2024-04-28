@@ -1,7 +1,9 @@
+import os
+
 from flask import Flask
 from flask_bootstrap import Bootstrap5
-import os
-from .modules.plex.main import PlexService
+
+from plexplaylistmanager.modules.plex.main import PlexService
 
 
 def create_app(test_config=None):
