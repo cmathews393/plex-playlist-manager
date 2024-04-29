@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "plex-playlist-manager"
+version = "0.1.0"
+description = ""
+authors = ["0xChloe <chloe@catastrophesoftware.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^3.0.3"
+Bootstrap-Flask = "^2.4.0"
+WTForms = "^3.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
