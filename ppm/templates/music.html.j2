@@ -1,0 +1,48 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+Spotiplex Control Panel
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Spotiplex Control Panel</h1>
+
+    <!-- Status Message -->
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+
+    <!-- Configuration Form -->
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.lidarr_sync.label(class="form-label") }}
+            {{ form.lidarr_sync(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.plex_users.label(class="form-label") }}
+            {{ form.plex_users(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.worker_count.label(class="form-label") }}
+            {{ form.worker_count(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.seconds_interval.label(class="form-label") }}
+            {{ form.seconds_interval(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.manual_playlists.label(class="form-label") }}
+            {{ form.manual_playlists(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+
+    <!-- Run Button -->
+    <form method="post" action="{{ url_for('main.run_spotiplex') }}">
+        {{ run_form.hidden_tag() }}
+        {{ run_form.submit(class="btn btn-success mt-3") }}
+    </form>
+</div>
+{% endblock %}
