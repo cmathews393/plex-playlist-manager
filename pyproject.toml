@@ -11,6 +11,9 @@ Flask = "^3.0.3"
 WTForms = "^3.1.2"
 bootstrap-flask = "^2.4.0"
 flask-wtf = "^1.2.1"
+spotipy = "^2.23.0"
+schedule = "^1.2.1"
+rtoml = "^0.10.0"
 
 [build-system]
 requires = ["poetry-core"]

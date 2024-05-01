@@ -1,6 +1,8 @@
-from flask import Blueprint, Flask, flash, redirect, render_template, url_for
+from flask import Blueprint, Flask, flash, redirect, render_template, request, url_for
 
 from ppm.forms import ConfigurationForm, RunForm  # Corrected from RunForms to RunForm
+from ppm.main import check_and_update_first_run
+from ppm.modules.confighandler.main import write_config
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = (
@@ -11,8 +13,28 @@ app.config["SECRET_KEY"] = (
 main_bp = Blueprint("main", __name__, template_folder="templates")
 
 
+@main_bp.route("/setup", methods=["GET", "POST"])
+def setup():
+    if request.method == "POST":
+        # Assume setup form has been filled out and now you're processing it
+        # Process your form data here and save it
+        write_config(
+            "ppm", {"first_run": "False"}
+        )  # Set the first run flag to False after setup
+        flash("Setup complete! Configuration saved.")
+        return redirect(url_for("home"))
+
+    # Only show setup if it's the first run
+    if check_and_update_first_run():
+        return render_template("setup.html.j2")
+    else:
+        return redirect(url_for("home"))
+
+
 @main_bp.route("/")
 def home():
+    if check_and_update_first_run():
+        return render_template("setup.html.j2")
     return render_template("home.html.j2")
 
 

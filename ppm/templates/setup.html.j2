@@ -1,0 +1,87 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+Spotiplex Setup
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4">
+                <h1 class="text-center">Setup Plex Playlist Manager</h1>
+                <form method="post">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="spotify-auth" name="spotify-auth">
+                        <label class="form-check-label" for="spotify-auth">Connect to Spotify?</label>
+                        <div id="spotify-options" class="mt-2" style="display:none;">
+                            <div class="form-check form-switch">
+                                <input type="radio" class="form-check-input" id="use-app-auth" name="spotify-option"
+                                    checked>
+                                <label class="form-check-label" for="use-app-auth">Use App's Spotify
+                                    Authorization</label>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-2" id="authorize-spotify">Authorize
+                                Spotify</button>
+
+                            <div class="form-check form-switch mt-2">
+                                <input type="radio" class="form-check-input" id="use-personal-keys"
+                                    name="spotify-option">
+                                <label class="form-check-label" for="use-personal-keys">Use Personal Spotify
+                                    Keys</label>
+                            </div>
+                            <div id="personal-keys" class="mt-2" style="display:none;">
+                                <div class="mb-3">
+                                    <label for="spotify-client-id" class="form-label">Spotify Client ID:</label>
+                                    <input type="text" class="form-control" id="spotify-client-id"
+                                        name="spotify-client-id">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="spotify-client-secret" class="form-label">Spotify Client Secret:</label>
+                                    <input type="password" class="form-control" id="spotify-client-secret"
+                                        name="spotify-client-secret">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="plex-auth" name="plex-auth">
+                        <label class="form-check-label" for="plex-auth">Connect to Plex?</label>
+                        <div id="plex-button" class="mt-2" style="display:none;">
+                            <button type="button" class="btn btn-primary">Authorize Plex</button>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Complete Setup</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('spotify-auth').onchange = function () {
+        document.getElementById('spotify-options').style.display = this.checked ? 'block' : 'none';
+    };
+
+    document.getElementById('use-app-auth').onchange = function () {
+        document.getElementById('authorize-spotify').style.display = 'block';
+        document.getElementById('personal-keys').style.display = 'none';
+    };
+
+    document.getElementById('use-personal-keys').onchange = function () {
+        document.getElementById('authorize-spotify').style.display = 'none';
+        document.getElementById('personal-keys').style.display = 'block';
+    };
+
+    // Adding JavaScript for Plex authorization visibility
+    document.getElementById('plex-auth').onchange = function () {
+        document.getElementById('plex-button').style.display = this.checked ? 'block' : 'none';
+    };
+</script>
+{% endblock %}
