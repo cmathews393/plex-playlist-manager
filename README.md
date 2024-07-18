@@ -1,3 +1,12 @@
+# This repository has been archived. See [arrmageddon](https://github.com/cmathews393/arrmageddon).
+
+
+
+
+
+
+
+
 # Plex Playlist Manager
  An easy way to sync playlists across multiple services, and manage playlists for plex more intuitively than the default Plex experience.
 
